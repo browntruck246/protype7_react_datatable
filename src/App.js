@@ -1,6 +1,13 @@
+import './App.css';
+
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Container from 'react-bootstrap/Container';
+
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -37,6 +44,49 @@ const App = () => {
     setFilteredData(filtered);
   };
 
+  const customStyles = {
+    header: {
+      style: {
+        fontSize: '22px',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#4A90E2',
+        backgroundColor: '#f0f8ff',
+      },
+    },
+    rows: {
+      style: {
+        fontSize: '16px',
+        '&:hover': {
+          backgroundColor: '#f1f1f1',
+        },
+      },
+    },
+    headCells: {
+      style: {
+        fontSize: '18px',
+        fontWeight: '600',
+        backgroundColor: '#e3f2fd',
+        color: '#333',
+      },
+    },
+    cells: {
+      style: {
+        padding: '8px',
+        color: '#555',
+      },
+    },
+  };
+
+  const h1Style = {
+    color: 'blue',
+    fontSize: '36px',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+  };
+
+  
+
   // Table Columns
   const columns = [
     { name: "ID", selector: (row) => row.id, sortable: true },
@@ -51,32 +101,40 @@ const App = () => {
 
   return (
     <div>
-      <h1>CRUD App with DataTable</h1>
-      <input
-        type="text"
-        placeholder="Search..."
-        onChange={(e) => handleFilter(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="ID"
-        value={newEntry.id}
-        onChange={(e) => setNewEntry({ ...newEntry, id: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Name"
-        value={newEntry.name}
-        onChange={(e) => setNewEntry({ ...newEntry, name: e.target.value })}
-      />
-      <button onClick={handleAdd}>Add</button>
-      <DataTable
-        title="User List"
-        columns={columns}
-        data={filteredData}
-        pagination
-      />
+      <Container>
+          <h1 style={h1Style} >CRUD App with DataTable</h1>
+
+          <div className="input-container">
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => handleFilter(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="ID"
+              value={newEntry.id}
+              onChange={(e) => setNewEntry({ ...newEntry, id: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Name"
+              value={newEntry.name}
+              onChange={(e) => setNewEntry({ ...newEntry, name: e.target.value })}
+            />
+            <button onClick={handleAdd}>Add</button>
+          </div>
+
+          <DataTable
+            title="User List"
+            columns={columns}
+            data={filteredData}
+            pagination
+            customStyles={customStyles}
+          />
+      </Container>
     </div>
+    
   );
 };
 
