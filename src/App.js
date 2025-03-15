@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Container from 'react-bootstrap/Container';
 
+import { Button } from 'react-bootstrap';
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -94,7 +95,7 @@ const App = () => {
     {
       name: "Actions",
       cell: (row) => (
-        <button onClick={() => handleDelete(row.id)}>Delete</button>
+        <Button variant="primary" onClick={() => handleDelete(row.id)}>Delete</Button>
       ),
     },
   ];
